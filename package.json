@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "cd packages/database && npx prisma generate && cd ../.. && npx turbo build",
+    "build": "cd packages/database && npx prisma generate && cd ../.. && npx turbo build --filter=sentientwire",
     "start": "next start",
     "lint": "eslint"
   },
