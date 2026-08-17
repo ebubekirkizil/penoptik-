@@ -1,0 +1,5 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "apps/mini-optik/.next",
+  "framework": "nextjs"
+}
