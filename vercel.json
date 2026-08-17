@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "cd packages/database && npx prisma generate && cd ../.. && npx turbo build --filter=sentientwire",
   "outputDirectory": "apps/mega-admin/.next",
   "framework": "nextjs"
 }
