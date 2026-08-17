@@ -1,6 +1,4 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
 :root {
   /* Net ve ferah bir ayrım için belirgin ama açık gri arka plan */
