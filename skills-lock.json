@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "skills": {
+    "apple-design": {
+      "source": "DavidHDev/react-bits",
+      "sourceType": "github",
+      "skillPath": "AGENTS/SKILLS/apple-design/SKILL.md",
+      "computedHash": "0d19303902efa64eace10e6b183eb29ef3220d424c1a7fd1eafc52adde216932"
+    },
+    "find-animation-opportunities": {
+      "source": "DavidHDev/react-bits",
+      "sourceType": "github",
+      "skillPath": "AGENTS/SKILLS/find-animation-opportunities/SKILL.md",
+      "computedHash": "5c3ea721da792383aac5c10927548ad0d2ab56706ff553109ecf6f743091b01b"
+    },
+    "improve-animations": {
+      "source": "DavidHDev/react-bits",
+      "sourceType": "github",
+      "skillPath": "AGENTS/SKILLS/improve-animations/SKILL.md",
+      "computedHash": "ff9991a8d6dabb24411daaf6de570e3b6826323459d514d90d7f6371bbdbdbe1"
+    },
+    "magic-ui": {
+      "source": "magicuidesign/magicui",
+      "sourceType": "github",
+      "skillPath": "skills/magic-ui/SKILL.md",
+      "computedHash": "751895d50c76490c6f92a68cdbe61100bd96b4963d1e91e37b5d82c8df0fc2d7"
+    },
+    "review-animations": {
+      "source": "DavidHDev/react-bits",
+      "sourceType": "github",
+      "skillPath": "AGENTS/SKILLS/review-animations/SKILL.md",
+      "computedHash": "26bec85a9bfe7cfbfd500ff1ffebc7819ac0cef75cf068c4a97b5af865ccccf7"
+    },
+    "shadcn": {
+      "source": "shadcn-ui/ui",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "f99ef49d9909d380ca683ceb8dc8c25775c20ee38140112c394e037d8c11ee18"
+    }
+  }
+}

@@ -1,0 +1,1882 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model SubscriptionPackage {
+  id             String          @id @default(cuid())
+  name           String
+  description    String?
+  price          Float
+  currency       String          @default("TRY")
+  features       String?
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  firms          Firm[]
+  packageModules PackageModule[]
+}
+
+model Firm {
+  id                    String                     @id @default(cuid())
+  name                  String
+  email                 String?
+  phone                 String?
+  address               String?
+  isActive              Boolean                    @default(true)
+  subscriptionPlan      String                     @default("TRIAL")
+  subscriptionEnd       DateTime?
+  subscriptionStatus    String                     @default("ACTIVE")
+  createdAt             DateTime                   @default(now())
+  updatedAt             DateTime                   @updatedAt
+  domain                String?                    @unique
+  sector                String                     @default("OPTICS")
+  activeModules         String?
+  packageId             String?
+  isTieredPricing       Boolean                    @default(false)
+  maxUsers              Int                        @default(5)
+  customPrice           Float?
+  tieredPrice           Float?
+  trialDays             Int?
+  isInventoryActive     Boolean                    @default(false)
+  logoUrl               String?
+  activeSessions        ActiveSession[]
+  addresses             Address[]
+  aiUsageLogs           AiUsageLog[]
+  analyticsEvents       AnalyticsEvent[]
+  auditLogs             AuditLog[]
+  b2Bcompanies          B2BCompany[]
+  bankAccounts          BankAccount[]
+  bankReconciliations   BankReconciliation[]
+  bankTransactionRaws   BankTransactionRaw[]
+  cargoTrackings        CargoTracking[]
+  channelVisibilities   ChannelVisibility[]
+  couponUsageLogs       CouponUsageLog[]
+  currentAccounts       CurrentAccount[]
+  customers             Customer[]
+  discountCodes         DiscountCode[]
+  dispatches            Dispatch[]
+  expenseTags           ExpenseTag[]
+  financeAuditLogs      FinanceAuditLog[]
+  transactions          FinanceTransaction[]
+  financialRecords      FinancialRecord[]
+  financialTransactions FinancialTransaction[]
+  fixedTransactions     FixedTransaction[]
+  firmIntegrations      FirmIntegration?
+  utsQueues             UtsQueue[]
+  utsLogs               UtsLog[]
+  sgkPrescriptions      SgkPrescription[]
+  package               SubscriptionPackage?       @relation(fields: [packageId], references: [id])
+  firmBlocks            FirmBlock[]
+  firmModules           FirmModule[]
+  firmPages             FirmPage[]
+  firmTemplates         FirmTemplate[]
+  firmThemes            FirmTheme[]
+  fulfillments          Fulfillment[]
+  fulfillmentItems      FulfillmentItem[]
+  inventoryTransactions InventoryTransaction[]
+  invoices              Invoice[]
+  kvkkConsentLogs       KvkkConsentLog[]
+  navigationItems       NavigationItem[]
+  navigationMenus       NavigationMenu[]
+  notifications         Notification[]
+  orders                Order[]
+  orderEventLogs        OrderEventLog[]
+  orderItems            OrderItem[]
+  packagePresets        PackagePreset[]
+  products              Product[]
+  productBundles        ProductBundle[]
+  productBundleItems    ProductBundleItem[]
+  productOptions        ProductOption[]
+  productOptionValues   ProductOptionValue[]
+  productVariants       ProductVariant[]
+  productionOrders      ProductionOrder[]
+  rawMaterials          RawMaterial[]
+  refunds               Refund[]
+  refundItems           RefundItem[]
+  reviews               Review[]
+  settings              Settings?
+  shippingProviders     ShippingProvider[]
+  shippingZones         ShippingZone[]
+  siteSettings          SiteSettings[]
+  stockLedgers          StockLedger[]
+  suppliers             Supplier[]
+  supportTickets        SupportTicket[]
+  systemTransactions    SystemFinanceTransaction[]
+  taxOptimizationLogs   TaxOptimizationLog[]
+  taxProfile            TaxProfile?
+  taxReports            TaxReport[]
+  tickets               Ticket[]
+  trackingEvents        TrackingEvent[]
+  users                 User[]
+  warehouses            Warehouse[]
+  warehouseStocks       WarehouseStock[]
+  Wholesaler            Wholesaler[]
+  wholesalerPurchases   WholesalerPurchase[]
+  wholesalerPayments    WholesalerPayment[]
+  wishlistItems         WishlistItem[]
+  messageTemplates      MessageTemplate[]
+  automationRules       AutomationRule[]
+  messageLogs           MessageLog[]
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  password            String
+  firstName           String?
+  lastName            String?
+  role                String               @default("FIRM_ADMIN")
+  firmId              String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  position            String?
+  salary              Float?
+  totalActiveHours    Float                @default(0)
+  sgkTaxRate          Float                @default(20)
+  deletedAt           DateTime?
+  userCode            String?              @unique
+  username            String?              @unique
+  frozenReason        String?
+  isFrozen            Boolean              @default(false)
+  activityLogs        ActivityLog[]
+  addresses           Address[]
+  b2bContact          B2BCompany?          @relation("B2BUser")
+  personalDiscounts   DiscountCode[]       @relation("PersonalDiscount")
+  employeeShifts      EmployeeShift[]
+  kvkkConsentLogs     KvkkConsentLog[]
+  nfcCards            NfcCard[]
+  nfcProfile          NfcProfile?
+  orders              Order[]
+  passwordResetTokens PasswordResetToken[]
+  payrolls            Payroll[]
+  reviews             Review[]
+  supportTickets      SupportTicket[]
+  tickets             Ticket[]
+  firm                Firm?                @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  wishlistItems       WishlistItem[]
+  utsQueues           UtsQueue[]
+  utsLogs             UtsLog[]
+  sgkPrescriptions    SgkPrescription[]
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  duration  Int?
+  createdAt DateTime @default(now())
+  details   Json?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Ticket {
+  id        String   @id @default(cuid())
+  firmId    String
+  userId    String
+  subject   String
+  message   String
+  status    String   @default("OPEN")
+  priority  String   @default("NORMAL")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  firm      Firm     @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model FinanceTransaction {
+  id          String    @id @default(cuid())
+  firmId      String
+  type        String
+  amount      Float
+  category    String
+  description String?
+  date        DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  firm        Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+}
+
+model Customer {
+  id                  String                 @id @default(cuid())
+  firstName           String
+  lastName            String
+  phone               String
+  address             String?
+  email               String?
+  password            String?
+  diseases            String?
+  notes               String?
+  createdAt           DateTime               @default(now())
+  updatedAt           DateTime               @updatedAt
+  hasLoggedBefore     Boolean                @default(false)
+  isPasswordTemporary Boolean                @default(false)
+  tempPasswordExpires DateTime?
+  tempPasswordPlain   String?
+  firmId              String?
+  deletedAt           DateTime?
+  tcNo                String?
+  firstNameHash       String?
+  kvkkApprovedAt      DateTime?
+  kvkkApprovedIp      String?
+  lastNameHash        String?
+  phoneHash           String?                @unique
+  tcNoHash            String?
+  firm                Firm?                  @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  verifications       CustomerVerification[]
+  opticOrders         OpticOrder[]
+  prescriptions       Prescription[]
+}
+
+model CustomerVerification {
+  id         String   @id @default(cuid())
+  customerId String
+  oldData    Json
+  newData    Json
+  status     String   @default("PENDING")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+model Prescription {
+  id               String       @id @default(cuid())
+  customerId       String
+  farRightSph      String?
+  farRightCyl      String?
+  farRightAx       String?
+  farLeftSph       String?
+  farLeftCyl       String?
+  farLeftAx        String?
+  nearRightSph     String?
+  nearRightCyl     String?
+  nearRightAx      String?
+  nearLeftSph      String?
+  nearLeftCyl      String?
+  nearLeftAx       String?
+  constantRightSph String?
+  constantRightCyl String?
+  constantRightAx  String?
+  constantLeftSph  String?
+  constantLeftCyl  String?
+  constantLeftAx   String?
+  addRight         String?
+  addLeft          String?
+  lensType         String?
+  doctorName       String?
+  hospitalName     String?
+  notes            String?
+  isPending        Boolean      @default(false)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  pdLeft           String?
+  pdRight          String?
+  pdTotal          String?
+  phLeft           String?
+  phRight          String?
+  coating          String?
+  deletedAt        DateTime?
+  opticOrders      OpticOrder[]
+  customer         Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+}
+
+model OpticOrder {
+  id             String        @id @default(cuid())
+  customerId     String
+  prescriptionId String?
+  status         String        @default("PENDING")
+  products       String?
+  productCode    String?
+  totalPrice     Float?
+  deposit        Float?
+  balance        Float?
+  orderDate      DateTime      @default(now())
+  deliveryDate   DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+  printSerialNo  String?
+  installments   Installment[]
+  customer       Customer      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
+}
+
+model Installment {
+  id        String     @id @default(cuid())
+  orderId   String
+  amount    Float
+  dueDate   DateTime
+  isPaid    Boolean    @default(false)
+  paidAt    DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  order     OpticOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model Settings {
+  id                          String    @id @default(cuid())
+  defaultTheme                String    @default("system")
+  customerCanViewMeasurements Boolean   @default(true)
+  customerCanEditMeasurements Boolean   @default(false)
+  customerCanViewBalance      Boolean   @default(true)
+  customerCanViewNotes        Boolean   @default(true)
+  customerCanViewDoctorInfo   Boolean   @default(true)
+  lightPrimary                String?
+  lightSecondary              String?
+  lightBackground             String?
+  lightSurface                String?
+  lightForeground             String?
+  lightMutedForeground        String?
+  lightBorder                 String?
+  darkPrimary                 String?
+  darkSecondary               String?
+  darkBackground              String?
+  darkSurface                 String?
+  darkForeground              String?
+  darkMutedForeground         String?
+  darkBorder                  String?
+  themeData                   String?   @default("{}")
+  subscriptionPlan            String    @default("Temel Paket")
+  subscriptionStatus          String    @default("Aktif")
+  subscriptionEndDate         DateTime?
+  supportLevel                String    @default("Standart E-posta Desteği")
+  hardwareSupport             Boolean   @default(false)
+  createdAt                   DateTime  @default(now())
+  updatedAt                   DateTime  @updatedAt
+  firmId                      String?   @unique
+  orderStatusConfig           String?
+  lastPrintSequence           Int       @default(0)
+  isAiBotActive               Boolean   @default(true)
+  firm                        Firm?     @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  financeTax                  String?   @db.Text
+  financePlanned              String?   @db.Text
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  FirmId     String
+  userId     String
+  title      String
+  fullName   String
+  phone      String
+  city       String
+  district   String
+  postalCode String?
+  address    String
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  Firm       Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders     Order[]
+}
+
+model ChannelVisibility {
+  id          String    @id @default(cuid())
+  FirmId      String
+  productId   String    @unique
+  showOnWeb   Boolean   @default(true)
+  showOnB2B   Boolean   @default(false)
+  showOnPOS   Boolean   @default(false)
+  publishAt   DateTime?
+  unpublishAt DateTime?
+  updatedAt   DateTime  @updatedAt
+  Firm        Firm      @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Product {
+  id                      String                   @id @default(cuid())
+  FirmId                  String
+  name                    String
+  slug                    String
+  description             String
+  shortDesc               String?
+  price                   Float
+  compareAtPrice          Float?
+  costPrice               Float?
+  category                ProductCategory          @default(OTHER)
+  status                  ProductStatus            @default(ACTIVE)
+  vendor                  String?                  @default("Davut Kundura Atölyesi")
+  tags                    String[]
+  imageUrls               String[]
+  videoUrl                String?
+  modelUrl3D              String?
+  sku                     String?
+  barcode                 String?
+  weight                  Float?
+  lowStockAlert           Int                      @default(5)
+  trackInventory          Boolean                  @default(true)
+  allowBackorder          Boolean                  @default(false)
+  seoTitle                String?
+  seoDesc                 String?
+  seoKeywords             String[]
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  details                 Json?
+  channelVisibility       ChannelVisibility?
+  inventory               InventoryTransaction[]
+  orderItems              OrderItem[]
+  Firm                    Firm                     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  bundleItems             ProductBundleItem[]      @relation("BundleComponents")
+  options                 ProductOption[]
+  variants                ProductVariant[]
+  productionOrders        ProductionOrder[]
+  reviews                 Review[]
+  wishlistItems           WishlistItem[]
+  wholesalerPurchaseItems WholesalerPurchaseItem[]
+
+  @@unique([FirmId, slug])
+  @@unique([FirmId, sku])
+}
+
+model ProductBundle {
+  id          String              @id @default(cuid())
+  FirmId      String
+  name        String
+  description String?
+  price       Float
+  imageUrl    String?
+  isActive    Boolean             @default(true)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  Firm        Firm                @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  items       ProductBundleItem[]
+}
+
+model ProductBundleItem {
+  id        String        @id @default(cuid())
+  FirmId    String
+  bundleId  String
+  productId String
+  variantId String?
+  quantity  Int           @default(1)
+  Firm      Firm          @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  bundle    ProductBundle @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  product   Product       @relation("BundleComponents", fields: [productId], references: [id])
+
+  @@unique([FirmId, bundleId, productId, variantId])
+}
+
+model ProductOption {
+  id        String               @id @default(cuid())
+  FirmId    String
+  productId String
+  name      String
+  position  Int                  @default(0)
+  Firm      Firm                 @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product   Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+  values    ProductOptionValue[]
+}
+
+model ProductOptionValue {
+  id               String        @id @default(cuid())
+  FirmId           String
+  optionId         String
+  value            String
+  dependsOnValueId String?
+  position         Int           @default(0)
+  Firm             Firm          @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  option           ProductOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+}
+
+model ProductVariant {
+  id                      String                   @id @default(cuid())
+  FirmId                  String
+  productId               String
+  name                    String
+  size                    String?
+  color                   String?
+  material                String?
+  price                   Float?
+  costPrice               Float?
+  sku                     String?                  @unique
+  barcode                 String?
+  stock                   Int                      @default(0)
+  imageUrl                String?
+  isActive                Boolean                  @default(true)
+  orderItems              OrderItem[]
+  Firm                    Firm                     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product                 Product                  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  stockLedger             StockLedger[]
+  warehouseStocks         WarehouseStock[]
+  wholesalerPurchaseItems WholesalerPurchaseItem[]
+}
+
+model Order {
+  id               String          @id @default(cuid())
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  FirmId           String
+  addressId        String?
+  adminNotes       String?
+  billingAddressId String?
+  discountAmount   Float           @default(0)
+  discountCodeId   String?
+  dueDate          DateTime?
+  notes            String?
+  orderNumber      String          @unique
+  orderType        OrderType       @default(B2C)
+  paidAmount       Float           @default(0)
+  paymentStatus    PaymentStatus   @default(UNPAID)
+  paytrMerchantOid String?
+  paytrToken       String?
+  shippingCost     Float           @default(0)
+  subtotal         Float
+  taxAmount        Float           @default(0)
+  totalAmount      Float
+  userId           String
+  status           OrderStatus     @default(PENDING)
+  deletedAt        DateTime?
+  customerPay      Float           @default(0)
+  sgkPay           Float           @default(0)
+  fulfillments     Fulfillment[]
+  invoice          Invoice?
+  Firm             Firm            @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  address          Address?        @relation(fields: [addressId], references: [id])
+  discountCode     DiscountCode?   @relation(fields: [discountCodeId], references: [id])
+  user             User            @relation(fields: [userId], references: [id])
+  eventLogs        OrderEventLog[]
+  items            OrderItem[]
+  refunds          Refund[]
+  supportTickets   SupportTicket[]
+}
+
+model OrderItem {
+  id           String          @id @default(cuid())
+  FirmId       String
+  orderId      String
+  productId    String
+  variantId    String?
+  quantity     Int
+  price        Float
+  costPrice    Float?
+  taxRate      Float           @default(18)
+  discount     Float           @default(0)
+  fulfilledQty Int             @default(0)
+  refundedQty  Int             @default(0)
+  bundleId     String?
+  Firm         Firm            @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order        Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product      Product         @relation(fields: [productId], references: [id])
+  variant      ProductVariant? @relation(fields: [variantId], references: [id])
+}
+
+model Fulfillment {
+  id              String            @id @default(cuid())
+  FirmId          String
+  orderId         String
+  warehouseId     String?
+  status          FulfillmentStatus @default(PENDING)
+  cargoCompany    String?
+  cargoTrackingNo String?
+  trackingUrl     String?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  dispatch        Dispatch?
+  Firm            Firm              @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order           Order             @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  warehouse       Warehouse?        @relation(fields: [warehouseId], references: [id])
+  items           FulfillmentItem[]
+}
+
+model FulfillmentItem {
+  id            String      @id @default(cuid())
+  FirmId        String
+  fulfillmentId String
+  orderItemId   String
+  quantity      Int
+  Firm          Firm        @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  fulfillment   Fulfillment @relation(fields: [fulfillmentId], references: [id], onDelete: Cascade)
+}
+
+model Refund {
+  id        String       @id @default(cuid())
+  FirmId    String
+  orderId   String
+  amount    Float
+  reason    String?
+  status    RmaStatus    @default(REQUESTED)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  Firm      Firm         @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order     Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  items     RefundItem[]
+}
+
+model RefundItem {
+  id          String        @id @default(cuid())
+  FirmId      String
+  refundId    String
+  orderItemId String
+  quantity    Int
+  condition   RmaCondition?
+  Firm        Firm          @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  refund      Refund        @relation(fields: [refundId], references: [id], onDelete: Cascade)
+}
+
+model OrderEventLog {
+  id        String   @id @default(cuid())
+  FirmId    String
+  orderId   String
+  action    String
+  message   String
+  userId    String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model StockLedger {
+  id           String            @id @default(cuid())
+  FirmId       String
+  variantId    String
+  warehouseId  String
+  movementType StockMovementType
+  quantity     Int
+  unitCost     Float?
+  reference    String?
+  notes        String?
+  performedBy  String?
+  createdAt    DateTime          @default(now())
+  Firm         Firm              @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  variant      ProductVariant    @relation(fields: [variantId], references: [id])
+  warehouse    Warehouse         @relation(fields: [warehouseId], references: [id])
+
+  @@index([variantId, warehouseId])
+  @@index([createdAt])
+}
+
+model InventoryTransaction {
+  id        String            @id @default(cuid())
+  FirmId    String
+  productId String
+  quantity  Int
+  type      StockMovementType
+  notes     String?
+  createdBy String?
+  createdAt DateTime          @default(now())
+  Firm      Firm              @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product   Product           @relation(fields: [productId], references: [id])
+}
+
+model ShippingProvider {
+  id         String               @id @default(cuid())
+  FirmId     String
+  name       String
+  slug       String               @unique
+  type       ShippingProviderType
+  logoUrl    String?
+  isActive   Boolean              @default(true)
+  apiBaseUrl String?
+  apiKey     String?
+  apiSecret  String?
+  webhookUrl String?
+  createdAt  DateTime             @default(now())
+  dispatches Dispatch[]
+  Firm       Firm                 @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  zones      ShippingZone[]
+}
+
+model ShippingZone {
+  id          String           @id @default(cuid())
+  FirmId      String
+  providerId  String
+  name        String
+  countries   String[]
+  baseFee     Float            @default(0)
+  perDesiRate Float            @default(0)
+  currency    String           @default("TRY")
+  freeAbove   Float?
+  Firm        Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  provider    ShippingProvider @relation(fields: [providerId], references: [id])
+
+  @@index([providerId])
+}
+
+model PackagePreset {
+  id            String     @id @default(cuid())
+  FirmId        String
+  name          String
+  widthCm       Float
+  heightCm      Float
+  depthCm       Float
+  emptyWeightKg Float      @default(0)
+  dispatches    Dispatch[]
+  Firm          Firm       @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model Dispatch {
+  id               String           @id @default(cuid())
+  FirmId           String
+  fulfillmentId    String           @unique
+  providerId       String
+  packagePresetId  String?
+  status           DispatchStatus   @default(DRAFT)
+  trackingNo       String?          @unique
+  trackingUrl      String?
+  zplLabel         String?
+  pdfLabelUrl      String?
+  grossWeightKg    Float?
+  desiWeight       Float?
+  chargeableWeight Float?
+  waybillNo        String?
+  shippingCost     Float?
+  returnBarcode    String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  Firm             Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  fulfillment      Fulfillment      @relation(fields: [fulfillmentId], references: [id])
+  packagePreset    PackagePreset?   @relation(fields: [packagePresetId], references: [id])
+  provider         ShippingProvider @relation(fields: [providerId], references: [id])
+  trackingEvents   TrackingEvent[]
+}
+
+model TrackingEvent {
+  id          String   @id @default(cuid())
+  FirmId      String
+  dispatchId  String
+  status      String
+  description String
+  location    String?
+  eventAt     DateTime
+  createdAt   DateTime @default(now())
+  Firm        Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  dispatch    Dispatch @relation(fields: [dispatchId], references: [id], onDelete: Cascade)
+
+  @@index([dispatchId, eventAt])
+}
+
+model ExpenseTag {
+  id           String                 @id @default(cuid())
+  FirmId       String
+  name         String                 @unique
+  color        String                 @default("#94a3b8")
+  createdAt    DateTime               @default(now())
+  Firm         Firm                   @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  transactions FinancialTransaction[]
+}
+
+model FinancialTransaction {
+  id               String              @id @default(cuid())
+  FirmId           String
+  type             TxType
+  status           TxStatus            @default(PENDING)
+  source           TxSource            @default(CASH)
+  amount           Float
+  currency         String              @default("TRY")
+  description      String
+  reference        String?
+  receiptUrl       String?
+  tagId            String?
+  currentAccountId String?
+  transactionDate  DateTime            @default(now())
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  reconciliation   BankReconciliation?
+  auditLogs        FinanceAuditLog[]
+  Firm             Firm                @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  currentAccount   CurrentAccount?     @relation(fields: [currentAccountId], references: [id])
+  tag              ExpenseTag?         @relation(fields: [tagId], references: [id])
+}
+
+model CurrentAccount {
+  id           String                 @id @default(cuid())
+  FirmId       String
+  name         String
+  type         CurrentAccountType
+  phone        String?
+  email        String?
+  taxNo        String?
+  balance      Float                  @default(0)
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  Firm         Firm                   @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  transactions FinancialTransaction[]
+}
+
+model BankAccount {
+  id              String               @id @default(cuid())
+  FirmId          String
+  bankName        String
+  iban            String               @unique
+  accountName     String
+  currency        String               @default("TRY")
+  currentBalance  Float                @default(0)
+  apiProvider     String?
+  clientId        String?
+  clientSecret    String?
+  lastSyncedAt    DateTime?
+  isReadOnly      Boolean              @default(true)
+  createdAt       DateTime             @default(now())
+  Firm            Firm                 @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  rawTransactions BankTransactionRaw[]
+}
+
+model BankTransactionRaw {
+  id             String              @id @default(cuid())
+  FirmId         String
+  bankAccountId  String
+  externalId     String
+  amount         Float
+  description    String
+  transactedAt   DateTime
+  isMatched      Boolean             @default(false)
+  createdAt      DateTime            @default(now())
+  reconciliation BankReconciliation?
+  Firm           Firm                @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  bankAccount    BankAccount         @relation(fields: [bankAccountId], references: [id])
+
+  @@unique([FirmId, bankAccountId, externalId])
+  @@index([bankAccountId, isMatched])
+}
+
+model BankReconciliation {
+  id            String                @id @default(cuid())
+  FirmId        String
+  rawTxId       String                @unique
+  financialTxId String?               @unique
+  status        ReconciliationStatus  @default(UNMATCHED)
+  matchedBy     String?
+  matchedAt     DateTime?
+  notes         String?
+  createdAt     DateTime              @default(now())
+  Firm          Firm                  @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  financialTx   FinancialTransaction? @relation(fields: [financialTxId], references: [id])
+  rawTx         BankTransactionRaw    @relation(fields: [rawTxId], references: [id])
+}
+
+model FinanceAuditLog {
+  id        String               @id @default(cuid())
+  FirmId    String
+  txId      String
+  action    AuditAction
+  fieldName String?
+  oldValue  String?
+  newValue  String?
+  reason    String?
+  userId    String?
+  ipAddress String?
+  createdAt DateTime             @default(now())
+  Firm      Firm                 @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  tx        FinancialTransaction @relation(fields: [txId], references: [id], onDelete: Cascade)
+}
+
+model FinancialRecord {
+  id          String   @id @default(cuid())
+  FirmId      String
+  month       Int
+  year        Int
+  revenue     Float    @default(0)
+  expense     Float    @default(0)
+  profit      Float    @default(0)
+  taxEstimate Float    @default(0)
+  orderCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Firm        Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+
+  @@unique([FirmId, month, year])
+}
+
+model Invoice {
+  id        String   @id @default(cuid())
+  FirmId    String
+  orderId   String   @unique
+  invoiceNo String   @unique
+  pdfUrl    String?
+  issuedAt  DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order     Order    @relation(fields: [orderId], references: [id])
+}
+
+model CargoTracking {
+  id            String      @id @default(cuid())
+  FirmId        String
+  orderNumber   String      @unique
+  company       String
+  trackingNo    String
+  status        CargoStatus @default(PREPARING)
+  estimatedDate DateTime?
+  deliveredAt   DateTime?
+  events        Json?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  Firm          Firm        @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model DiscountCode {
+  id                   String           @id @default(cuid())
+  FirmId               String
+  code                 String           @unique
+  description          String?
+  type                 DiscountType
+  value                Float
+  maxDiscount          Float?
+  minOrderAmount       Float?
+  applicableCategories String[]
+  applicableProductIds String[]
+  maxUses              Int?
+  perUserLimit         Int              @default(1)
+  usedCount            Int              @default(0)
+  startsAt             DateTime         @default(now())
+  expiresAt            DateTime?
+  isActive             Boolean          @default(true)
+  totalDiscountGiven   Float            @default(0)
+  userId               String?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  usageLogs            CouponUsageLog[]
+  Firm                 Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  user                 User?            @relation("PersonalDiscount", fields: [userId], references: [id])
+  orders               Order[]
+}
+
+model CouponUsageLog {
+  id             String       @id @default(cuid())
+  FirmId         String
+  discountCodeId String
+  userId         String
+  orderId        String?
+  discountAmount Float
+  createdAt      DateTime     @default(now())
+  Firm           Firm         @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  discountCode   DiscountCode @relation(fields: [discountCodeId], references: [id], onDelete: Cascade)
+
+  @@index([discountCodeId, userId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  FirmId    String
+  productId String
+  userId    String
+  rating    Int
+  title     String?
+  body      String?
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  FirmId    String
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([FirmId, userId, productId])
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  FirmId    String
+  type      String
+  sessionId String
+  userId    String?
+  page      String?
+  productId String?
+  country   String?
+  city      String?
+  lat       Float?
+  lng       Float?
+  device    String?
+  browser   String?
+  referrer  String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model ActiveSession {
+  id        String   @id @default(cuid())
+  FirmId    String
+  sessionId String   @unique
+  country   String?
+  city      String?
+  lat       Float?
+  lng       Float?
+  page      String?
+  device    String?
+  lastSeen  DateTime @default(now())
+  createdAt DateTime @default(now())
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  FirmId    String
+  type      NotificationType
+  title     String
+  message   String
+  isRead    Boolean          @default(false)
+  link      String?
+  metadata  Json?
+  createdAt DateTime         @default(now())
+  Firm      Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model SiteSettings {
+  id        String   @id @default(cuid())
+  FirmId    String
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+  Firm      Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model FirmTheme {
+  id          String   @id @default(cuid())
+  FirmId      String
+  name        String   @default("Davut Kundura PRO Theme")
+  isActive    Boolean  @default(false)
+  isPublished Boolean  @default(false)
+  colors      Json
+  typography  Json
+  settings    Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Firm        Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model FirmPage {
+  id          String      @id @default(cuid())
+  FirmId      String
+  title       String
+  slug        String
+  type        PageType    @default(CUSTOM)
+  isPublished Boolean     @default(false)
+  seoTitle    String?
+  seoDesc     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  blocks      FirmBlock[]
+  Firm        Firm        @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+
+  @@unique([FirmId, slug])
+}
+
+model FirmBlock {
+  id        String    @id @default(cuid())
+  FirmId    String
+  pageId    String?
+  type      String
+  order     Int       @default(0)
+  content   Json
+  style     Json
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Firm      Firm      @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  page      FirmPage? @relation(fields: [pageId], references: [id], onDelete: Cascade)
+}
+
+model FirmTemplate {
+  id         String   @id @default(cuid())
+  FirmId     String
+  name       String
+  category   String
+  previewUrl String?
+  structure  Json
+  createdAt  DateTime @default(now())
+  Firm       Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model NavigationMenu {
+  id        String           @id @default(cuid())
+  FirmId    String
+  name      String           @unique
+  createdAt DateTime         @default(now())
+  items     NavigationItem[]
+  Firm      Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model NavigationItem {
+  id        String         @id @default(cuid())
+  FirmId    String
+  menuId    String
+  label     String
+  url       String
+  order     Int            @default(0)
+  parentId  String?
+  createdAt DateTime       @default(now())
+  Firm      Firm           @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  menu      NavigationMenu @relation(fields: [menuId], references: [id], onDelete: Cascade)
+}
+
+model Warehouse {
+  id          String           @id @default(cuid())
+  FirmId      String
+  name        String
+  code        String           @unique
+  address     String?
+  managerName String?
+  isActive    Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  Fulfillment Fulfillment[]
+  stockLedger StockLedger[]
+  Firm        Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  stockItems  WarehouseStock[]
+}
+
+model WarehouseStock {
+  id          String         @id @default(cuid())
+  FirmId      String
+  warehouseId String
+  variantId   String
+  quantity    Int            @default(0)
+  reserved    Int            @default(0)
+  minStock    Int            @default(5)
+  shelfLoc    String?
+  Firm        Firm           @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  variant     ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  warehouse   Warehouse      @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+
+  @@unique([FirmId, warehouseId, variantId])
+  @@index([variantId])
+}
+
+model Supplier {
+  id          String        @id @default(cuid())
+  FirmId      String
+  name        String
+  contactName String?
+  email       String?
+  phone       String?
+  taxNumber   String?
+  address     String?
+  balance     Float         @default(0)
+  categories  String[]
+  createdAt   DateTime      @default(now())
+  materials   RawMaterial[]
+  Firm        Firm          @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model RawMaterial {
+  id          String   @id @default(cuid())
+  FirmId      String
+  supplierId  String
+  name        String
+  sku         String   @unique
+  unit        String
+  stockQty    Float    @default(0)
+  costPerUnit Float
+  createdAt   DateTime @default(now())
+  Firm        Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  supplier    Supplier @relation(fields: [supplierId], references: [id])
+}
+
+model ProductionOrder {
+  id         String           @id @default(cuid())
+  FirmId     String
+  orderNo    String           @unique
+  productId  String
+  quantity   Int
+  targetDate DateTime?
+  status     ProductionStatus @default(PLANNING)
+  costEst    Float?
+  actualCost Float?
+  notes      String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+  Firm       Firm             @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  product    Product          @relation(fields: [productId], references: [id])
+}
+
+model B2BCompany {
+  id            String   @id @default(cuid())
+  FirmId        String
+  companyName   String
+  taxOffice     String?
+  taxNumber     String?
+  discountTier  Float    @default(10.0)
+  creditLimit   Float?
+  balanceOwed   Float    @default(0)
+  contactUserId String?  @unique
+  createdAt     DateTime @default(now())
+  Firm          Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  contactUser   User?    @relation("B2BUser", fields: [contactUserId], references: [id])
+}
+
+model SupportTicket {
+  id         String         @id @default(cuid())
+  FirmId     String
+  ticketNo   String         @unique
+  userId     String?
+  orderId    String?
+  subject    String
+  message    String
+  priority   TicketPriority @default(MEDIUM)
+  status     TicketStatus   @default(OPEN)
+  assignedTo String?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  Firm       Firm           @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  order      Order?         @relation(fields: [orderId], references: [id])
+  user       User?          @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  FirmId     String
+  adminId    String
+  action     String
+  entityType String
+  entityId   String
+  oldData    Json?
+  newData    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  Firm       Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model TaxProfile {
+  id                  String      @id @default(cuid())
+  FirmId              String      @unique
+  companyType         CompanyType @default(SAHIS)
+  taxOffice           String?
+  taxNumber           String?
+  isYoungEntrepreneur Boolean     @default(false)
+  hasTechnopark       Boolean     @default(false)
+  hasRAndD            Boolean     @default(false)
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  Firm                Firm        @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model TaxReport {
+  id                 String   @id @default(cuid())
+  FirmId             String
+  period             String
+  estimatedVat       Float    @default(0)
+  estimatedIncome    Float    @default(0)
+  estimatedCorporate Float    @default(0)
+  details            Json?
+  createdAt          DateTime @default(now())
+  Firm               Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model TaxOptimizationLog {
+  id               String   @id @default(cuid())
+  FirmId           String
+  title            String
+  description      String
+  estimatedSavings Float?
+  isImplemented    Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  Firm             Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model Module {
+  id             String          @id @default(cuid())
+  name           String
+  description    String?
+  icon           String?
+  category       String          @default("ERP")
+  status         String          @default("Aktif")
+  monthlyPrice   Float           @default(0)
+  annualPrice    Float           @default(0)
+  isCore         Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  firmModules    FirmModule[]
+  packageModules PackageModule[]
+}
+
+model PackageModule {
+  id        String              @id @default(cuid())
+  packageId String
+  moduleId  String
+  createdAt DateTime            @default(now())
+  module    Module              @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  package   SubscriptionPackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
+
+  @@unique([packageId, moduleId])
+}
+
+model FirmModule {
+  id        String    @id @default(cuid())
+  firmId    String
+  moduleId  String
+  status    String    @default("ACTIVE")
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  firm      Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  module    Module    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([firmId, moduleId])
+}
+
+model AiUsageLog {
+  id               String   @id @default(cuid())
+  firmId           String
+  userId           String?
+  query            String
+  responseSummary  String?
+  source           String   @default("GEMINI_AI")
+  createdAt        DateTime @default(now())
+  completionTokens Int?
+  promptTokens     Int?
+  totalTokens      Int?
+  modelUsed        String?
+  cost             Float    @default(0)
+  isError          Boolean  @default(false)
+  errorMessage     String?
+  firm             Firm     @relation(fields: [firmId], references: [id], onDelete: Cascade)
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmployeeShift {
+  id            String    @id @default(cuid())
+  userId        String
+  date          DateTime
+  checkIn       DateTime?
+  checkOut      DateTime?
+  overtimeHours Float     @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Payroll {
+  id         String    @id @default(cuid())
+  userId     String
+  month      Int
+  year       Int
+  baseSalary Float
+  bonus      Float     @default(0)
+  sgkTax     Float     @default(0)
+  netPay     Float
+  isPaid     Boolean   @default(false)
+  paidAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SystemFinanceTransaction {
+  id          String    @id @default(cuid())
+  type        String
+  amount      Float
+  category    String
+  description String?
+  firmId      String
+  status      String    @default("COMPLETED")
+  date        DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  dueDate     DateTime?
+  firm        Firm      @relation(fields: [firmId], references: [id], onDelete: Cascade)
+}
+
+model NfcCard {
+  id             String         @id @default(cuid())
+  serialCode     String         @unique
+  activationCode String?
+  userId         String?
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+  isLocked       Boolean        @default(false)
+  analytics      NfcAnalytics[]
+  user           User?          @relation(fields: [userId], references: [id])
+}
+
+model NfcProfile {
+  id           String         @id @default(cuid())
+  userId       String         @unique
+  slug         String         @unique
+  name         String
+  title        String?
+  companyName  String?
+  bio          String?
+  profileImage String?
+  coverImage   String?
+  themeColor   String         @default("#000000")
+  isPublished  Boolean        @default(false)
+  isPinActive  Boolean        @default(false)
+  pinCode      String?
+  analytics    NfcAnalytics[]
+  modules      NfcModule[]
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model NfcModule {
+  id        String     @id @default(cuid())
+  profileId String
+  type      String
+  title     String
+  url       String
+  icon      String?
+  order     Int        @default(0)
+  isActive  Boolean    @default(true)
+  profile   NfcProfile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model NfcAnalytics {
+  id         String      @id @default(cuid())
+  profileId  String?
+  cardId     String?
+  scanDate   DateTime    @default(now())
+  actionType String
+  targetId   String?
+  userAgent  String?
+  os         String?
+  browser    String?
+  deviceType String?
+  ipHash     String?
+  isUnique   Boolean     @default(true)
+  card       NfcCard?    @relation(fields: [cardId], references: [id])
+  profile    NfcProfile? @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model KvkkConsentLog {
+  id              String   @id @default(cuid())
+  userId          String
+  firmId          String?
+  ipAddress       String?
+  userAgent       String?
+  documentVersion String
+  acceptedAt      DateTime @default(now())
+  firm            Firm?    @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Wholesaler {
+  id        String               @id
+  FirmId    String
+  name      String
+  contact   String?
+  phone     String?
+  address   String?
+  balance   Float                @default(0)
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  Firm      Firm                 @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  purchases WholesalerPurchase[]
+  payments  WholesalerPayment[]
+}
+
+enum SaaSTier {
+  BASIC
+  PRO
+  ENTERPRISE
+}
+
+enum ProductCategory {
+  ORTHOPEDIC_INSOLE
+  BELT
+  SHOE_CARE
+  LUGGAGE_PARTS
+  OTHER
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  PARTIAL
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PARTIALLY_PAID
+  PAID
+  PARTIALLY_REFUNDED
+  REFUNDED
+}
+
+enum OrderType {
+  B2C
+  B2B
+}
+
+enum FulfillmentStatus {
+  PENDING
+  PACKING
+  SHIPPED
+  DELIVERED
+  FAILED
+}
+
+enum RmaStatus {
+  REQUESTED
+  APPROVED
+  RECEIVED
+  REJECTED
+  COMPLETED
+}
+
+enum RmaCondition {
+  GOOD
+  DAMAGED
+  DEFECTIVE
+}
+
+enum StockMovementType {
+  PURCHASE
+  SALE
+  RETURN_IN
+  RETURN_OUT
+  TRANSFER_IN
+  TRANSFER_OUT
+  ADJUSTMENT
+  RESERVED
+  UNRESERVED
+}
+
+enum ShippingProviderType {
+  COURIER
+  EXPRESS
+  PALLET
+  LOCAL
+}
+
+enum DispatchStatus {
+  DRAFT
+  LABEL_READY
+  PRINTED
+  HANDED_OFF
+  IN_TRANSIT
+  DELIVERED
+  FAILED
+  RETURNED
+}
+
+enum TxType {
+  INCOME
+  EXPENSE
+}
+
+enum TxStatus {
+  PENDING
+  CLEARED
+  VOID
+}
+
+enum TxSource {
+  BANK
+  CASH
+  POS
+  CARD
+  TRANSFER
+}
+
+enum CurrentAccountType {
+  CUSTOMER
+  SUPPLIER
+}
+
+enum ReconciliationStatus {
+  MATCHED
+  UNMATCHED
+  DISPUTED
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  RECONCILE
+  UNRECONCILE
+}
+
+enum CargoStatus {
+  PREPARING
+  AT_CARGO
+  ON_THE_WAY
+  DELIVERED
+  RETURNED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+  FREE_SHIP
+}
+
+enum NotificationType {
+  NEW_ORDER
+  LOW_STOCK
+  NEW_REVIEW
+  PAYMENT_RECEIVED
+  CARGO_DELIVERED
+}
+
+enum PageType {
+  HOME
+  CUSTOM
+  PRODUCT_TEMPLATE
+  CATEGORY_TEMPLATE
+  POLICY
+}
+
+enum ProductionStatus {
+  PLANNING
+  CUTTING
+  SEWING
+  ASSEMBLY
+  QUALITY_CHECK
+  COMPLETED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_CUSTOMER
+  RESOLVED
+  CLOSED
+}
+
+enum CompanyType {
+  SAHIS
+  LIMITED
+  ANONIM
+}
+
+enum StockStatus {
+  IN_STOCK
+  SOLD
+  WASTE
+}
+
+model FixedTransaction {
+  id          String   @id @default(cuid())
+  FirmId      String
+  type        TxType
+  amount      Float
+  currency    String   @default("TRY")
+  category    String
+  description String
+  dayOfMonth  Int?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Firm        Firm     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+}
+
+model WholesalerPurchase {
+  id           String         @id @default(cuid())
+  FirmId       String
+  wholesalerId String
+  status       PurchaseStatus @default(PENDING)
+  totalAmount  Float
+  cargoStatus  CargoStatus    @default(PREPARING)
+  trackingNo   String?
+  notes        String?
+  expectedDate DateTime?
+  deliveredAt  DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  Firm       Firm                     @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  wholesaler Wholesaler               @relation(fields: [wholesalerId], references: [id], onDelete: Cascade)
+  items      WholesalerPurchaseItem[]
+}
+
+model WholesalerPurchaseItem {
+  id         String    @id @default(cuid())
+  purchaseId String
+  productId  String
+  variantId  String?
+  quantity   Int
+  unitPrice  Float
+  expiryDate DateTime?
+
+  purchase WholesalerPurchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  product  Product            @relation(fields: [productId], references: [id])
+  variant  ProductVariant?    @relation(fields: [variantId], references: [id])
+}
+
+model WholesalerPayment {
+  id           String   @id @default(cuid())
+  FirmId       String
+  wholesalerId String
+  amount       Float
+  title        String?
+  paymentDate  DateTime @default(now())
+  method       TxSource @default(TRANSFER)
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  Firm       Firm       @relation(fields: [FirmId], references: [id], onDelete: Cascade)
+  wholesaler Wholesaler @relation(fields: [wholesalerId], references: [id], onDelete: Cascade)
+}
+
+enum PurchaseStatus {
+  PENDING
+  DELIVERED
+  CANCELLED
+}
+
+model MessageTemplate {
+  id        String           @id @default(cuid())
+  firmId    String
+  name      String
+  type      MessageType // SMS, WHATSAPP, EMAIL
+  subject   String? // E-posta Konu Başlığı
+  content   String
+  isActive  Boolean          @default(true)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  firm      Firm             @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  rules     AutomationRule[]
+}
+
+model AutomationRule {
+  id         String          @id @default(cuid())
+  firmId     String
+  name       String
+  trigger    String // e.g. "ORDER_CREATED", "ORDER_READY", "ORDER_DELIVERED"
+  templateId String
+  isActive   Boolean         @default(true)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  firm       Firm            @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  template   MessageTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+}
+
+model MessageLog {
+  id          String        @id @default(cuid())
+  firmId      String
+  customerId  String?
+  to          String // Phone or Email
+  type        MessageType
+  content     String
+  status      MessageStatus @default(PENDING)
+  errorReason String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  firm        Firm          @relation(fields: [firmId], references: [id], onDelete: Cascade)
+}
+
+enum MessageType {
+  SMS
+  WHATSAPP
+  EMAIL
+}
+
+enum MessageStatus {
+  PENDING
+  SENT
+  FAILED
+  DELIVERED
+}
+
+model FirmIntegration {
+  id           String   @id @default(cuid())
+  firmId       String   @unique
+  sgkKurumKodu String?
+  sgkSifre     String? // Encrypted
+  sgkTesisKodu String?
+  utsKurumNo   String?
+  utsToken     String? // Encrypted
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  firm         Firm     @relation(fields: [firmId], references: [id], onDelete: Cascade)
+}
+
+enum UtsActionType {
+  ALMA
+  VERME
+  IADE
+  TUKETIM
+}
+
+enum UtsStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+model UtsQueue {
+  id           String        @id @default(cuid())
+  firmId       String
+  userId       String?
+  actionType   UtsActionType
+  status       UtsStatus     @default(PENDING)
+  barcode      String
+  tcKimlik     String? // Gerekli bildirimler icin
+  errorMessage String?
+  retryCount   Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  firm         Firm          @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user         User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model UtsLog {
+  id         String        @id @default(cuid())
+  firmId     String
+  userId     String?
+  actionType UtsActionType
+  status     UtsStatus
+  barcode    String
+  details    String?
+  createdAt  DateTime      @default(now())
+  firm       Firm          @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user       User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+enum SgkPrescriptionStatus {
+  APPROVED
+  INVOICED
+  CANCELLED
+}
+
+model SgkPrescription {
+  id               String                @id @default(cuid())
+  firmId           String
+  userId           String?
+  tcKimlik         String
+  eReceteNo        String
+  medulaTakipNo    String
+  status           SgkPrescriptionStatus @default(APPROVED)
+  patientName      String?
+  prescriptionDate DateTime?
+  createdAt        DateTime              @default(now())
+  updatedAt        DateTime              @updatedAt
+  firm             Firm                  @relation(fields: [firmId], references: [id], onDelete: Cascade)
+  user             User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+}

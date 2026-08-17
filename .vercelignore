@@ -1,0 +1,9 @@
+.next
+node_modules
+apps/*/.next
+apps/*/node_modules
+packages/*/node_modules
+*.zip
+.turbo
+apps/*/.turbo
+.git
