@@ -1,5 +1,5 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "apps/mini-optik/.next",
+  "outputDirectory": "apps/mega-admin/.next",
   "framework": "nextjs"
 }

@@ -1,0 +1,101 @@
+﻿import { db } from "@/lib/db";
+import { CreditCard, Users, TrendingUp, ShieldAlert, ScanLine } from "lucide-react";
+
+export const revalidate = 0;
+
+export default async function NfcMegaAdminDashboard() {
+  let totalCards = 0;
+  let activeCards = 0;
+  let totalProfiles = 0;
+  let publishedProfiles = 0;
+
+  try {
+    totalCards = await db.nfcCard.count();
+    activeCards = await db.nfcCard.count({ where: { isActive: true } });
+    totalProfiles = await db.nfcProfile.count();
+    publishedProfiles = await db.nfcProfile.count({ where: { isPublished: true } });
+  } catch (error) {
+    console.error("NFC database query error (missing tables?):", error);
+  }
+
+  const stats = [
+    { label: "Toplam Kart", value: totalCards, icon: <CreditCard className="w-8 h-8 text-blue-500" />, sub: `${activeCards} Aktif, ${totalCards - activeCards} Pasif` },
+    { label: "Toplam Profiller", value: totalProfiles, icon: <Users className="w-8 h-8 text-green-500" />, sub: `${publishedProfiles} Yayında` },
+    { label: "Sistem Taramaları", value: "3,240", icon: <TrendingUp className="w-8 h-8 text-purple-500" />, sub: "Son 30 günde" },
+    { label: "İptal Edilen (Kill-Switch)", value: totalCards - activeCards, icon: <ShieldAlert className="w-8 h-8 text-red-500" />, sub: "Pasif Kartlar" },
+  ];
+
+  return (
+    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">NFC Genel Bakıx</h1>
+        <p className="text-gray-500 dark:text-slate-400 mt-1">Sistemdeki kartların ve müxterilerin özet durumu.</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        {stats.map((stat, i) => (
+          <div key={i} className="bg-white dark:bg-[#0F172A] rounded-2xl p-6 border border-gray-200 dark:border-[#1E293B] shadow-sm flex flex-col justify-between">
+            <div className="flex justify-between items-start mb-4">
+              <div className="p-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl">
+                {stat.icon}
+              </div>
+            </div>
+            <div>
+              <p className="text-gray-500 dark:text-slate-400 font-medium text-sm">{stat.label}</p>
+              <h3 className="text-3xl font-black text-gray-900 dark:text-white mt-1">{stat.value}</h3>
+              <p className="text-gray-400 dark:text-slate-500 text-xs mt-2 font-medium">{stat.sub}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+        <div className="bg-white dark:bg-[#0F172A] rounded-2xl border border-gray-200 dark:border-[#1E293B] p-6 shadow-sm">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Son Aktiviteler</h3>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-[#1E293B]">
+              <div>
+                <p className="text-sm font-bold text-gray-900 dark:text-white">Yeni Kart Üretildi</p>
+                <p className="text-xs text-gray-500 dark:text-slate-400">B-X7F9K (B2C Müxteri)</p>
+              </div>
+              <span className="text-xs text-gray-400 dark:text-slate-500">10 dk önce</span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-[#1E293B]">
+              <div>
+                <p className="text-sm font-bold text-gray-900 dark:text-white">Profil Güncellendi</p>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Ahmet Yılmaz</p>
+              </div>
+              <span className="text-xs text-gray-400 dark:text-slate-500">1 saat önce</span>
+            </div>
+            <div className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-[#1E293B]">
+              <div>
+                <p className="text-sm font-bold text-red-600 dark:text-red-400">Kart İptal Edildi</p>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Stok: 023 (Kill-Switch)</p>
+              </div>
+              <span className="text-xs text-gray-400 dark:text-slate-500">Dün</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl border border-gray-800 dark:border-slate-800 p-6 shadow-xl text-white flex flex-col justify-between relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-10">
+            <ScanLine className="w-48 h-48" />
+          </div>
+          <div className="relative z-10">
+            <h3 className="text-xl font-bold mb-2">Hızlı Kart Tarama</h3>
+            <p className="text-gray-400 dark:text-slate-300 text-sm max-w-xs">Cep telefonunuzu kullanarak fiziksel bir kartın durumunu anında sorgulayın.</p>
+          </div>
+          <div className="relative z-10 mt-8">
+            <a 
+              href="/super-admin/nfc/checker" 
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold transition-colors"
+            >
+              <ScanLine size={20} />
+              Tarayıcıyı Aç
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,308 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  /* Net ve ferah bir ayrım için belirgin ama açık gri arka plan */
+  --background: #e5e7eb;
+  --foreground: #374151;
+  
+  --primary: #5c9ca8;
+  --primary-dark: #4a828e;
+  --secondary: #c59b5d;
+  
+  /* Kartlar tam beyaz olacak */
+  --surface: #ffffff;
+  --surface-light: #f9fafb;
+  
+  /* Çizgileri siyah göstermemek için çok hafif, transparan bir kenarlık */
+  --border-color: rgba(156, 163, 175, 0.15);
+  
+  --glass-bg: #ffffff;
+  --hero-gradient-1: rgba(92, 156, 168, 0.05);
+  --hero-gradient-2: rgba(197, 155, 93, 0.05);
+
+  --muted-foreground: #6b7280;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  --chart-1: #5c9ca8;
+  --chart-2: #c59b5d;
+}
+
+.dark {
+  --background: #1B242A;
+  --foreground: #f1f5f9;
+  
+  --primary: #7EACB5;
+  --primary-dark: #6398a2;
+  --secondary: #F5E4C8;
+  
+  --surface: #222e35;
+  --surface-light: rgba(0, 0, 0, 0.2);
+  --border-color: rgba(126, 172, 181, 0.15);
+  
+  --glass-bg: rgba(34, 46, 53, 0.92);
+  --hero-gradient-1: rgba(126, 172, 181, 0.12);
+  --hero-gradient-2: rgba(245, 228, 200, 0.04);
+
+  --muted-foreground: #94a3b8;
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --success: #34d399;
+  --chart-1: #7EACB5;
+  --chart-2: #F5E4C8;
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-surface: var(--surface);
+  --color-surface-light: var(--surface-light);
+  --color-border: var(--border-color);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+
+  --animate-blob: blob 10s infinite;
+  --animate-shine: shine 3s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Mobile: remove 300ms tap delay on ALL interactive elements */
+  a, button, input, select, textarea, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* Force foreground color to be always visible */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--foreground);
+  }
+}
+
+@layer utilities {
+  .page-container {
+    padding: 1rem;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (min-width: 640px) { .page-container { padding: 1.5rem; } }
+  @media (min-width: 1024px) { .page-container { padding: 2rem; } }
+
+  .card {
+    background-color: var(--surface);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-color);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary:hover { opacity: 0.92; }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--surface);
+    color: var(--foreground);
+    border: 1px solid var(--border-color);
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover {
+    background: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .glass {
+    background: var(--glass-bg);
+  }
+
+  /* Only apply blur on devices that handle it well (non-touch / hover-capable) */
+  @media (hover: hover) {
+    .glass {
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  }
+
+  .gradient-hero {
+    background: radial-gradient(ellipse at top left, var(--hero-gradient-1) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom right, var(--hero-gradient-2) 0%, transparent 60%);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(126, 172, 181, 0.25);
+  }
+
+  .card-hover {
+    transition: all 0.2s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(126, 172, 181, 0.2);
+  }
+
+  /* Status badges - work in both light and dark */
+  .status-pending {
+    background: rgba(245, 158, 11, 0.12);
+    color: #d97706;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+  .dark .status-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.2);
+  }
+
+  .status-preparing {
+    background: rgba(59, 130, 246, 0.12);
+    color: #2563eb;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+  .dark .status-preparing {
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+
+  .status-ready {
+    background: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+  .dark .status-ready {
+    background: rgba(16, 185, 129, 0.1);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.2);
+  }
+
+  .status-delivered {
+    background: rgba(100, 116, 139, 0.1);
+    color: #64748b;
+    border: 1px solid rgba(100, 116, 139, 0.2);
+  }
+  .dark .status-delivered {
+    background: rgba(100, 116, 139, 0.08);
+    color: #94a3b8;
+    border-color: rgba(100, 116, 139, 0.15);
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    will-change: transform;
+  }
+
+  .bg-dot-pattern {
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  
+  .text-shine {
+    background: linear-gradient(to right, var(--primary) 20%, var(--secondary) 40%, var(--secondary) 60%, var(--primary) 80%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 3s linear infinite;
+  }
+}
