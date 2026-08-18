@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Building2, TrendingUp, Users, DollarSign, ArrowUpRight, Activity, Server, Clock, HardDrive, ShieldAlert, Zap, Box, CheckCircle2, Database, Receipt, Truck, ShoppingBag, Store, ArrowRight, Lock, Package, Shield, Globe } from "lucide-react";
 import Link from "next/link";
@@ -80,7 +80,7 @@ export default function SentientWireLanding() {
           >
             <div className="relative shadow-[0_0_80px_rgba(37,99,235,0.2)] rounded-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none rounded-2xl z-10"></div>
-              <AdminDemo />
+              <AdminDemo />{/* Forced rebuild comment to bypass turbo cache */}
             </div>
           </motion.div>
         </div>
