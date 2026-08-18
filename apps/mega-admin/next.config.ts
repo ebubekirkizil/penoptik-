@@ -11,6 +11,18 @@ const nextConfig = {
   },
   serverExternalPackages: ["better-sqlite3", "@prisma/adapter-better-sqlite3"],
   allowedDevOrigins: ["192.168.0.12", "192.168.1.12", "192.168.0.*", "192.168.1.*"],
+  async rewrites() {
+    return [
+      {
+        source: '/ebubekir-kizildas',
+        destination: 'https://nfs-modeller.vercel.app',
+      },
+      {
+        source: '/ebubekir-kizildas/:path*',
+        destination: 'https://nfs-modeller.vercel.app/:path*',
+      },
+    ];
+  },
   turbopack: {
     resolveAlias: {
       "@/components": "../../packages/ui/src/components",
@@ -34,4 +46,5 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 
