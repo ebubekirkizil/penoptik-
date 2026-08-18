@@ -4,19 +4,9 @@ import { decrypt } from "@/lib/auth";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  
-  // EBUBEKIR-KIZILDAS REWRITE (100% FORCE REWRITE TO EXTERNAL SITE)
-  if (pathname === "/ebubekir-kizildas") {
-    return NextResponse.rewrite(new URL("https://nfs-modeller.vercel.app/"));
-  }
-  if (pathname.startsWith("/ebubekir-kizildas/")) {
-    const rest = pathname.replace("/ebubekir-kizildas/", "");
-    return NextResponse.rewrite(new URL("https://nfs-modeller.vercel.app/" + rest));
-  }
-
   const hostname = request.headers.get("host") || "";
 
-  // 1. Super Admin Korumasý
+  // 1. Super Admin KorumasÄ±
   if (pathname.startsWith("/super-admin")) {
     const sessionCookie = request.cookies.get("saas_session")?.value;
     
@@ -33,7 +23,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2. Firma Yöneticisi (Admin) Korumasý
+  // 2. Firma YÃ¶neticisi (Admin) KorumasÄ±
   if (pathname.startsWith("/admin")) {
     const saasSession = request.cookies.get("saas_session")?.value;
     if (saasSession) {
@@ -49,7 +39,7 @@ export async function middleware(request: NextRequest) {
   // 3. Multi-Tenant Custom Domain Routing
   
 
-  // Dýþarýda tutulacak (rewrite edilmeyecek) sistem ve global sayfalar:
+  // DÄ±xarÄ±da tutulacak (rewrite edilmeyecek) sistem ve global sayfalar:
   const isSystemRoute = 
     pathname.startsWith("/api") || 
     pathname.startsWith("/_next") || 
@@ -57,7 +47,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/change-password") ||
     pathname.includes("."); // .ico, .png, vb. dosyalar
 
-  // Accept-Language header üzerinden dil tespiti simülasyonu
+  // Accept-Language header Ã¼zerinden dil tespiti simÃ¼lasyonu
   const acceptLanguage = request.headers.get("accept-language");
   let preferredLanguage = "tr";
 
@@ -68,7 +58,7 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   response.cookies.set("X-Preferred-Language", preferredLanguage, {
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 gün
+    maxAge: 60 * 60 * 24 * 30, // 30 gÃ¼n
   });
 
   return response;
@@ -76,6 +66,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|ebubekir-kizildas).*)",
   ],
 };
+
