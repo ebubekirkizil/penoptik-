@@ -80,7 +80,7 @@ export default function SentientWireLanding() {
           >
             <div className="relative shadow-[0_0_80px_rgba(37,99,235,0.2)] rounded-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none rounded-2xl z-10"></div>
-              <AdminDemo />{/* Forced rebuild comment to bypass turbo cache */}
+              <AdminDemo />{/* Forced rebuild v2 */}
             </div>
           </motion.div>
         </div>
