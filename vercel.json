@@ -1,5 +1,15 @@
 {
   "buildCommand": "cd packages/database && npx prisma generate && cd ../.. && npx turbo build --filter=sentientwire",
   "outputDirectory": "apps/mega-admin/.next",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/ebubekir-kizildas",
+      "destination": "https://nfs-modeller.vercel.app"
+    },
+    {
+      "source": "/ebubekir-kizildas/:path*",
+      "destination": "https://nfs-modeller.vercel.app/:path*"
+    }
+  ]
 }
