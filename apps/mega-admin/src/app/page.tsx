@@ -24,12 +24,12 @@ export default function SentientWireLanding() {
       <LandingHeader
         navLinks={[
           { href: "#surec", label: "Sistem Süreci" },
-          { href: "#nasil-calisir", label: "Nasıl Çalıxır?" },
+          { href: "#nasil-calisir", label: "Nasıl Çalışır?" },
           { href: "#karsilastirma", label: "Paketler" },
           { href: "/nfc-kart", label: "NFC Akıllı Kart", highlight: true },
         ]}
         ctaHref="/login"
-        ctaLabel="İxletme Girixi"
+        ctaLabel="İşletme Girişi"
       />
 
       {/* Hero Section with Live Dashboard Mockup */}
@@ -56,14 +56,14 @@ export default function SentientWireLanding() {
             </h1>
 
             <p className="text-base sm:text-xl text-slate-900 dark:text-white/50 max-w-3xl mx-auto leading-relaxed mb-10 sm:mb-12 px-2 sm:px-0">
-              Sıradan yazılımları unutun. Tüm E-Ticaret, Finans, Kargo ve Stok süreçlerinizin birbiriyle konuxtuğu, gerçek zamanlı ve ıxık hızında çalıxan bulut ixletim sistemi.
+              Sıradan yazılımları unutun. Tüm E-Ticaret, Finans, Kargo ve Stok süreçlerinizin birbiriyle konuştuğu, gerçek zamanlı ve ışık hızında çalışan bulut işletim sistemi.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-24">
               <Link href="#karsilastirma" className="w-full sm:w-auto relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-violet-600 rounded-xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-500"></div>
                 <div className="relative px-8 py-4 bg-gradient-to-r from-blue-600 to-violet-600 text-slate-900 dark:text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
-                  Sistemi Baxlat
+                  Sistemi Başlat
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
@@ -109,7 +109,7 @@ export default function SentientWireLanding() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <h2 className="text-3xl sm:text-5xl font-medium tracking-tight mb-6">Şeffaf, Güçlü Paketler.</h2>
-            <p className="text-lg text-slate-900 dark:text-gray-500 dark:text-white/50">Gizli maliyet yok. İhtiyacınıza uygun olanı seçin ve dünyanın en büyük altyapı özelliklerine anında erixin.</p>
+            <p className="text-lg text-slate-900 dark:text-gray-500 dark:text-white/50">Gizli maliyet yok. İhtiyacınıza uygun olanı seçin ve dünyanın en büyük altyapı özelliklerine anında erişin.</p>
           </div>
 
           <PricingSection />
@@ -128,7 +128,7 @@ export default function SentientWireLanding() {
                 <span className="font-bold text-slate-900 dark:text-white text-xl tracking-tight">SentientWire</span>
               </div>
               <p className="text-sm text-slate-900 dark:text-gray-400 dark:text-white/40 max-w-sm leading-relaxed mb-6">
-                Türkiye'nin en gelixmix bulut tabanlı, API öncelikli B2B/B2C Kurumsal Yönetim ve ERP Altyapısı. İxinizi global vizyonla ölçeklendirin.
+                Türkiye'nin en gelişmiş bulut tabanlı, API öncelikli B2B/B2C Kurumsal Yönetim ve ERP Altyapısı. İşinizi global vizyonla ölçeklendirin.
               </p>
               <div className="flex items-center gap-4 text-slate-900 dark:text-gray-400 dark:text-white/30">
                 <Shield className="w-5 h-5 hover:text-slate-900 dark:text-white transition-colors cursor-pointer" />
@@ -143,7 +143,7 @@ export default function SentientWireLanding() {
                 <li><a href="#surec" className="hover:text-slate-900 dark:text-white transition-colors">Tüm Özellikler</a></li>
                 <li><a href="#surec" className="hover:text-slate-900 dark:text-white transition-colors">Entegrasyonlar</a></li>
                 <li><a href="#karsilastirma" className="hover:text-slate-900 dark:text-white transition-colors">Fiyatlandırma</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Gelixtirici API</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Geliştirici API</a></li>
               </ul>
             </div>
             
@@ -160,9 +160,9 @@ export default function SentientWireLanding() {
               <h4 className="text-slate-900 dark:text-white font-semibold mb-6 text-sm uppercase tracking-wider">Kurumsal</h4>
               <ul className="space-y-4 text-sm text-slate-900 dark:text-gray-500 dark:text-white/50">
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Hakkımızda</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">İletixim</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">İletişim</a></li>
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Gizlilik Politikası</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Kullanım Koxulları</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Kullanım Koşulları</a></li>
               </ul>
             </div>
           </div>

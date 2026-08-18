@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Zap, Shield, Smartphone, Globe, ArrowRight, CheckCircle2, User, Database, Link as LinkIcon, Camera, Briefcase, FileText, Lock } from "lucide-react";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export default function NfcMarketingPage() {
           { href: "#moduller", label: "Akıllı Modüller" },
         ]}
         ctaHref="/login"
-        ctaLabel="Girix Yap / Kayıt Ol"
+        ctaLabel="Giriş Yap / Kayıt Ol"
       />
 
 
@@ -54,14 +54,14 @@ export default function NfcMarketingPage() {
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-900 dark:text-gray-500 dark:text-white/50 max-w-3xl mx-auto leading-relaxed mb-12">
-              NFC Akıllı Kartınızla tüm iletixim bilgilerinizi, sosyal medya hesaplarınızı ve portfolyonuzu tek bir dokunuxla karxı tarafa aktarın. Üstelik tamamen size özel bir dijital profille.
+              NFC Akıllı Kartınızla tüm iletişim bilgilerinizi, sosyal medya hesaplarınızı ve portfolyonuzu tek bir dokunuşla karşı tarafa aktarın. Üstelik tamamen size özel bir dijital profille.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center mb-24">
               <Link href="/register?type=nfc" className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-lg opacity-40 group-hover:opacity-70 transition-opacity duration-500"></div>
                 <div className="relative px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
-                  Kendi Kartınızı Oluxturun
+                  Kendi Kartınızı oluşturun
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
@@ -76,7 +76,7 @@ export default function NfcMarketingPage() {
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-medium tracking-tight mb-6">Neden Sentient Wire NFC?</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Klasik kartvizitlerin sınırlamalarını axın. Kurumsal ve bireysel ihtiyaçlar için tasarlanmıx profesyonel altyapımızla tanıxın.
+              Klasik kartvizitlerin sınırlamalarını aşın. Kurumsal ve bireysel ihtiyaçlar için tasarlanmış profesyonel altyapımızla tanışın.
             </p>
           </div>
 
@@ -85,32 +85,32 @@ export default function NfcMarketingPage() {
               {
                 icon: <Smartphone className="w-6 h-6 text-blue-500" />,
                 title: "Uygulama Gerektirmez",
-                desc: "Karxı tarafın telefonunda hiçbir uygulama yüklü olmasına gerek yoktur. Kartı yaklaxtırdığınız an profiliniz doğrudan web tarayıcısında açılır."
+                desc: "Karşı tarafın telefonunda hiçbir uygulama yüklü olmasına gerek yoktur. Kartı yaklaştırdığınız an profiliniz doğrudan web tarayıcısında açılır."
               },
               {
                 icon: <Shield className="w-6 h-6 text-indigo-500" />,
-                title: "Gelixmix PIN ve Bypass",
-                desc: "Profilinizi PIN koduyla koruyun. Ancak fiziksel kartınızı okuttuğunuz özel kixiler 'Bypass' teknolojimiz sayesinde xifre girmeden doğrudan profilinize ulaxsın."
+                title: "Gelişmiş PIN ve Bypass",
+                desc: "Profilinizi PIN koduyla koruyun. Ancak fiziksel kartınızı okuttuğunuz özel kişiler 'Bypass' teknolojimiz sayesinde şifre girmeden doğrudan profilinize ulaşsın."
               },
               {
                 icon: <Globe className="w-6 h-6 text-purple-500" />,
                 title: "7/24 Bulut Senkronizasyonu",
-                desc: "Unvanınız mı değixti? Yeni bir telefon numaranız mı var? Anında panelden güncelleyin, kartınız saniyeler içinde yeni bilgilerinizi göstersin."
+                desc: "Unvanınız mı değişti? Yeni bir telefon numaranız mı var? Anında panelden güncelleyin, kartınız saniyeler içinde yeni bilgilerinizi göstersin."
               },
               {
                 icon: <Database className="w-6 h-6 text-emerald-500" />,
                 title: "Rehbere Otomatik Kayıt",
-                desc: "Tek tuxla tüm iletixim bilgilerinizi karxı tarafın telefon rehberine vCard (VCF) formatında kusursuz ve eksiksiz olarak kaydedin."
+                desc: "Tek tuşla tüm iletişim bilgilerinizi Karşı tarafın telefon rehberine vCard (VCF) formatında kusursuz ve eksiksiz olarak kaydedin."
               },
               {
                 icon: <User className="w-6 h-6 text-pink-500" />,
                 title: "Bireysel ve Kurumsal Kullanım",
-                desc: "İster kixisel markanızı güçlendirmek isteyen bir profesyonel, ister tüm çalıxanlarına dijital kimlik sağlamak isteyen bir xirket olun; altyapımız tüm ihtiyaçlarınıza uyum sağlar."
+                desc: "İster Kişisel markanızı güçlendirmek isteyen bir profesyonel, ister tüm çalışanlarına dijital kimlik sağlamak isteyen bir şirket olun; altyapımız tüm ihtiyaçlarınıza uyum sağlar."
               },
               {
                 icon: <Zap className="w-6 h-6 text-yellow-500" />,
                 title: "Anında Aktivasyon",
-                desc: "Kayıt olduğunuz an dijital profiliniz yayında. Kendi akıllı kartınızı saniyeler içinde profilinizle exlextirin ve anında kullanmaya baxlayın."
+                desc: "Kayıt olduğunuz an dijital profiliniz yayında. Kendi akıllı kartınızı saniyeler içinde profilinizle eşleştirin ve anında kullanmaya başlayın."
               }
             ].map((feature, i) => (
               <div key={i} className="p-8 rounded-3xl bg-white dark:bg-[#0a0a0a] border border-black/5 dark:border-white/5 hover:border-blue-500/30 transition-all hover:-translate-y-1 group shadow-sm hover:shadow-xl">
@@ -139,13 +139,13 @@ export default function NfcMarketingPage() {
                 Sınırları Olmayan Bir Dijital Profil.
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
-                Sosyal medya hesaplarınızdan (Instagram, LinkedIn, X, YouTube), xirket web sitenize, IBAN bilgilerinize ve hatta özel fotoğraf galerilerinize kadar her xeyi tek bir ekranda, en estetik biçimde toplayın.
+                Sosyal medya hesaplarınızdan (Instagram, LinkedIn, X, YouTube), şirket web sitenize, IBAN bilgilerinize ve hatta özel fotoğraf galerilerinize kadar her şeyi tek bir ekranda, en estetik biçimde toplayın.
               </p>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500"><LinkIcon size={18} /></div>
-                  <span className="font-medium">Sınırsız Özellextirilebilir Link</span>
+                  <span className="font-medium">Sınırsız Özelleştirilebilir Link</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-500"><Camera size={18} /></div>
@@ -153,7 +153,7 @@ export default function NfcMarketingPage() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500"><Briefcase size={18} /></div>
-                  <span className="font-medium">Profesyonel İx & Finans Araçları</span>
+                  <span className="font-medium">Profesyonel İş & Finans Araçları</span>
                 </div>
               </div>
             </div>
@@ -264,26 +264,26 @@ export default function NfcMarketingPage() {
         
         {(() => {
           const reviews = [
-            { name: "Can Yılmaz", title: "Gayrimenkul Danıxmanı", rating: 5, comment: "Müxterilerim kartımı okuttuğunda portföyümü anında görebiliyor. Kağıt kartvizit bastırmaktan kurtuldum, kesinlikle çok daha prestijli." },
-            { name: "Ayxe K.", title: "E-Ticaret Giriximcisi", rating: 5, comment: "Fuar etkinliklerinde saniyeler içinde networking yapmamı sağladı. Arayüzü o kadar kolay ki 2 dakikada profilimi kurdum. Harika!" },
-            { name: "Burak Demir", title: "Yazılım Mimarı", rating: 4, comment: "Gelixmix analitikler sayesinde profilimin kaç kez görüntülendiğini takip etmek çok keyifli. Şirket ekibimiz için kurumsal pakete geçeceğiz." },
-            { name: "Selin G.", title: "İç Mimar", rating: 5, comment: "Tasarımlarımı tek dokunuxla müxteriye aktarmak mükemmel bir his. Kartın tasarımı da oldukça kaliteli ve xık duruyor." },
-            { name: "Mehmet A.", title: "Satıx Müdürü", rating: 5, comment: "Satıx toplantılarında kartımı uzattığım an sohbetin seyri değixiyor. Teknolojik bir izlenim bırakmak satıx kapatma oranımı artırdı." },
-            { name: "Zeynep T.", title: "Diyetisyen", rating: 5, comment: "Danıxanlarım iletixim bilgilerimi ve randevu linkimi NFC sayesinde saniyeler içinde telefonlarına kaydedebiliyor." },
-            { name: "Kaan Ç.", title: "Start-up Kurucusu", rating: 4, comment: "Yatırımcı görüxmelerinde anında pitch deck'imi ve LinkedIn profilimi paylaxabiliyorum. Gerçekten hayat kurtarıcı." },
-            { name: "Elif S.", title: "Güzellik Uzmanı", rating: 5, comment: "Müxterilerim direkt fiyat listeme ve Instagram sayfama ulaxıyor. İxlerimi çok profesyonellextirdi." },
-            { name: "Okan B.", title: "Finans Danıxmanı", rating: 5, comment: "Gizlilik ve güvenlik endixelerim vardı ancak Bypass Token altyapısı sayesinde içim çok rahat. Mükemmel teknoloji." },
-            { name: "Cemre Y.", title: "Fotoğrafçı", rating: 5, comment: "Portfolyomu taxımama gerek kalmadı. Kartı okuttuğum an dijital galerim karxılarında açılıyor. Herkes bayılıyor!" },
+            { name: "Can Yılmaz", title: "Gayrimenkul Danışmanı", rating: 5, comment: "Müşterilerim kartımı okuttuğunda portföyümü anında görebiliyor. Kağıt kartvizit bastırmaktan kurtuldum, kesinlikle çok daha prestijli." },
+            { name: "Ayşe K.", title: "E-Ticaret Girişimcisi", rating: 5, comment: "Fuar etkinliklerinde saniyeler içinde networking yapmamı sağladı. Arayüzü o kadar kolay ki 2 dakikada profilimi kurdum. Harika!" },
+            { name: "Burak Demir", title: "Yazılım Mimarı", rating: 4, comment: "Gelişmiş analitikler sayesinde profilimin kaç kez görüntülendiğini takip etmek çok keyifli. Şirket ekibimiz için kurumsal pakete geçeceğiz." },
+            { name: "Selin G.", title: "İç Mimar", rating: 5, comment: "Tasarımlarımı tek dokunuşla müşteriye aktarmak mükemmel bir his. Kartın tasarımı da oldukça kaliteli ve şık duruyor." },
+            { name: "Mehmet A.", title: "Satış Müdürü", rating: 5, comment: "Satış toplantılarında kartımı uzattığım an sohbetin seyri değişiyor. Teknolojik bir izlenim bırakmak satış kapatma oranımı artırdı." },
+            { name: "Zeynep T.", title: "Diyetisyen", rating: 5, comment: "Danışanlarım iletişim bilgilerimi ve randevu linkimi NFC sayesinde saniyeler içinde telefonlarına kaydedebiliyor." },
+            { name: "Kaan Ç.", title: "Start-up Kurucusu", rating: 4, comment: "Yatırımcı görüşmelerinde anında pitch deck'imi ve LinkedIn profilimi paylaşabiliyorum. Gerçekten hayat kurtarıcı." },
+            { name: "Elif S.", title: "Güzellik Uzmanı", rating: 5, comment: "Müşterilerim direkt fiyat listeme ve Instagram sayfama ulaşıyor. İşlerimi çok profesyonelleştirdi." },
+            { name: "Okan B.", title: "Finans Danışmanı", rating: 5, comment: "Gizlilik ve güvenlik endişelerim vardı ancak Bypass Token altyapısı sayesinde içim çok rahat. Mükemmel teknoloji." },
+            { name: "Cemre Y.", title: "Fotoğrafçı", rating: 5, comment: "Portfolyomu taşımama gerek kalmadı. Kartı okuttuğum an dijital galerim karşılarında açılıyor. Herkes bayılıyor!" },
             { name: "Hakan E.", title: "Avukat", rating: 4, comment: "Klasik kartvizitler çekmecede kayboluyordu. Artık doğrudan rehberlerine kaydediliyorum, harika bir sistem." },
-            { name: "Derya M.", title: "Etkinlik Organizatörü", rating: 5, comment: "Kalabalık etkinliklerde yüzlerce kixiyle tanıxıyorum. Bu kart sayesinde tek tek numara yazma derdim bitti." },
-            { name: "Tuğrul K.", title: "Otomotiv Bayisi", rating: 5, comment: "Showroom'a gelen müxterilere araç kataloglarını anında NFC ile iletiyoruz. Kağıt masrafından inanılmaz tasarruf ettik." },
-            { name: "Büxra N.", title: "Fitness Eğitmeni", rating: 5, comment: "Antrenman videolarıma ve ders programıma anında erixim sağlıyorlar. Kesinlikle çok inovatif." },
-            { name: "Emre P.", title: "Yazılımcı", rating: 5, comment: "Github repolarımı ve kixisel web sitemi paylaxmanın en havalı yolu. Kartı gören 'bunu nasıl yaptın?' diye soruyor." },
-            { name: "Aslı V.", title: "Psikolog", rating: 4, comment: "Randevu oluxturma linkim doğrudan açıldığı için asistan ihtiyacımı bile azalttı diyebilirim." },
-            { name: "Volkan D.", title: "Mimar", rating: 5, comment: "3D projelerimi telefon ekranlarına direkt yansıtıyor gibi hissediyorum. Vizyoner xirketler için xart." },
-            { name: "Gözde C.", title: "İnsan Kaynakları", rating: 5, comment: "Aday görüxmelerinde ve kurumsal fuarlarda xirket profilimizi paylaxmak hiç bu kadar kolay ve etkileyici olmamıxtı." },
-            { name: "Sinan R.", title: "Restoran Sahibi", rating: 5, comment: "Tedarikçiler ve yeni ix ortaklarıyla tanıxırken vizyonumuzu çok iyi yansıtıyor. Menü entegrasyonu da cabası." },
-            { name: "Merve İ.", title: "Dix Hekimi", rating: 4, comment: "Kliniğime gelen hastalar kartımı okutup doğrudan yol tarifi ve iletixim bilgilerini alıyor. Çok pratik." }
+            { name: "Derya M.", title: "Etkinlik Organizatörü", rating: 5, comment: "Kalabalık etkinliklerde yüzlerce kişiyle tanışıyorum. Bu kart sayesinde tek tek numara yazma derdim bitti." },
+            { name: "Tuğrul K.", title: "Otomotiv Bayisi", rating: 5, comment: "Showroom'a gelen müşterilere araç kataloglarını anında NFC ile iletiyoruz. Kağıt masrafından inanılmaz tasarruf ettik." },
+            { name: "Büşra N.", title: "Fitness Eğitmeni", rating: 5, comment: "Antrenman videolarıma ve ders programıma anında erişim sağlıyorlar. Kesinlikle çok inovatif." },
+            { name: "Emre P.", title: "Yazılımcı", rating: 5, comment: "Github repolarımı ve kişisel web sitemi paylaşmanın en havalı yolu. Kartı gören 'bunu nasıl yaptın?' diye soruyor." },
+            { name: "Aslı V.", title: "Psikolog", rating: 4, comment: "Randevu oluşturma linkim doğrudan açıldığı için asistan ihtiyacımı bile azalttı diyebilirim." },
+            { name: "Volkan D.", title: "Mimar", rating: 5, comment: "3D projelerimi telefon ekranlarına direkt yansıtıyor gibi hissediyorum. Vizyoner şirketler için şart." },
+            { name: "Gözde C.", title: "İnsan Kaynakları", rating: 5, comment: "Aday görüşmelerinde ve kurumsal fuarlarda şirket profilimizi paylaşmak hiç bu kadar kolay ve etkileyici olmamıştı." },
+            { name: "Sinan R.", title: "Restoran Sahibi", rating: 5, comment: "Tedarikçiler ve yeni iş ortaklarıyla tanışırken vizyonumuzu çok iyi yansıtıyor. Menü entegrasyonu da cabası." },
+            { name: "Merve İ.", title: "Diş Hekimi", rating: 4, comment: "Kliniğime gelen hastalar kartımı okutup doğrudan yol tarifi ve iletişim bilgilerini alıyor. Çok pratik." }
           ];
 
           return (
@@ -331,7 +331,7 @@ export default function NfcMarketingPage() {
             {/* Bireysel */}
             <div className="bg-gray-50/80 dark:bg-gray-900/40 backdrop-blur-md rounded-3xl p-8 border border-gray-200/50 dark:border-gray-800/50 flex flex-col">
               <h3 className="text-xl font-bold mb-2">Bireysel Profil</h3>
-              <p className="text-gray-500 text-sm mb-6">Kixisel markanızı dijitalde profesyonelce sergileyin.</p>
+              <p className="text-gray-500 text-sm mb-6">Kişisel markanızı dijitalde profesyonelce sergileyin.</p>
               <div className="mb-6">
                 <div className="flex items-end gap-1"><span className="text-4xl font-black"> 49</span><span className="text-gray-500">/ ay</span></div>
                 <div className="text-xs font-bold text-emerald-500 mt-2 bg-emerald-500/10 inline-block px-2 py-1 rounded-md">Yıllık  499 (2 Ay Bizden!)</div>
@@ -339,17 +339,17 @@ export default function NfcMarketingPage() {
               <ul className="space-y-4 mb-8 flex-1">
                 <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Profil Bilgilerini Web'den Sınırsız Güncelleme</li>
                 <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Sınırsız NFC Okutma & Sosyal Medya Modülleri</li>
-                <li className="flex items-center gap-3 text-sm"><Shield className="w-5 h-5 text-blue-500" /> Çip Donanım Kilidi (Fiziksel Kopyalamaya Karxı)</li>
+                <li className="flex items-center gap-3 text-sm"><Shield className="w-5 h-5 text-blue-500" /> Çip Donanım Kilidi (Fiziksel Kopyalamaya Karşı)</li>
                 <li className="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-600 line-through"><Smartphone className="w-5 h-5 opacity-50" /> Native App ile Çip Yönetimi (Yok)</li>
               </ul>
-              <Link href="/login?tab=register" className="w-full py-4 rounded-xl font-bold text-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">Hemen Baxla</Link>
+              <Link href="/login?tab=register" className="w-full py-4 rounded-xl font-bold text-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">Hemen Başla</Link>
             </div>
             
             {/* Profesyonel */}
             <div className="bg-blue-600/90 backdrop-blur-md rounded-3xl p-8 border border-blue-500 flex flex-col text-white shadow-2xl shadow-blue-900/20 relative transform md:-translate-y-4">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-blue-600 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">En Çok Tercih Edilen</div>
               <h3 className="text-xl font-bold mb-2">Profesyonel Kart</h3>
-              <p className="text-blue-200 text-sm mb-6">Giriximciler ve küçük ixletmeler için gelixmix özellikler.</p>
+              <p className="text-blue-200 text-sm mb-6">Girişimciler ve küçük işletmeler için gelişmiş özellikler.</p>
               <div className="mb-6">
                 <div className="flex items-end gap-1"><span className="text-4xl font-black"> 89</span><span className="text-blue-200">/ ay</span></div>
                 <div className="text-xs font-bold text-white mt-2 bg-white/20 inline-block px-2 py-1 rounded-md">Yıllık  899 (%15 Net İndirim)</div>
@@ -359,9 +359,9 @@ export default function NfcMarketingPage() {
                 <li className="flex items-center gap-3 text-sm font-bold bg-white/10 p-2 rounded-lg -mx-2"><Smartphone className="w-5 h-5 text-white" /> Özel Native Uygulama İndirebilme</li>
                 <li className="flex items-center gap-3 text-sm font-bold bg-white/10 p-2 rounded-lg -mx-2"><Shield className="w-5 h-5 text-white" /> Uygulama İle Çip Şifresini Sınırsız Yönetme</li>
                 <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-white" /> Bilgileri Direkt Uygulamadan Güncelleme</li>
-                <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-white" /> Gelixmix Galeri ve Analitikler</li>
+                <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-white" /> Gelişmiş Galeri ve Analitikler</li>
               </ul>
-              <Link href="/login?tab=register" className="w-full py-4 rounded-xl font-bold text-center bg-white text-blue-600 hover:bg-gray-50 transition-colors">Hemen Baxla</Link>
+              <Link href="/login?tab=register" className="w-full py-4 rounded-xl font-bold text-center bg-white text-blue-600 hover:bg-gray-50 transition-colors">Hemen Başla</Link>
             </div>
 
             {/* Kurumsal */}
@@ -374,7 +374,7 @@ export default function NfcMarketingPage() {
                 <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Şirket İçi CRM Entegrasyonu</li>
                 <li className="flex items-center gap-3 text-sm"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Toplu Kart Üretimi</li>
               </ul>
-              <Link href="/login" className="w-full py-4 rounded-xl font-bold text-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">İletixime Geç</Link>
+              <Link href="/login" className="w-full py-4 rounded-xl font-bold text-center bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">İletişime Geç</Link>
             </div>
           </div>
         </div>
@@ -388,10 +388,10 @@ export default function NfcMarketingPage() {
           </div>
           <div className="space-y-4">
             {[
-              { q: "NFC Kartım telefonlarda çalıxır mı?", a: "Evet, 2018 sonrasında üretilen tüm akıllı telefonlar (iPhone ve Android) NFC teknolojisini destekler ve kartınızı dokundurarak okuyabilir." },
-              { q: "Kartımı güncellemek için yeni bir kart almam gerekir mi?", a: "Hayır. Bilgilerinizi panelinizden değixtirdiğiniz anda, kartınızın içindeki veriler anında ve otomatik olarak güncellenir." },
+              { q: "NFC Kartım telefonlarda çalışır mı?", a: "Evet, 2018 sonrasında üretilen tüm akıllı telefonlar (iPhone ve Android) NFC teknolojisini destekler ve kartınızı dokundurarak okuyabilir." },
+              { q: "Kartımı güncellemek için yeni bir kart almam gerekir mi?", a: "Hayır. Bilgilerinizi panelinizden değiştirdiğiniz anda, kartınızın içindeki veriler anında ve otomatik olarak güncellenir." },
               { q: "Aylık veya yıllık aidat var mı?", a: "Bireysel profillerimiz tamamen ücretsizdir. Premium özellikler ve fiziksel kartlar için yıllık uygun fiyatlı paketlerimiz bulunmaktadır." },
-              { q: "Kartımın güvenliğini nasıl sağlıyorsunuz?", a: "Kartlarınız özel PIN sistemimiz ve exlextirme altyapımızla (Bypass Token) korunmaktadır. Baxkası tarafından kopyalanamaz veya yetkisiz kullanılamaz." }
+              { q: "Kartımın güvenliğini nasıl sağlıyorsunuz?", a: "Kartlarınız özel PIN sistemimiz ve eşleştirme altyapımızla (Bypass Token) korunmaktadır. Başkası tarafından kopyalanamaz veya yetkisiz kullanılamaz." }
             ].map((faq, idx) => (
               <div key={idx} className="bg-white/60 dark:bg-gray-900/40 backdrop-blur-md p-6 rounded-2xl border border-gray-200/50 dark:border-gray-800/50">
                 <h4 className="font-bold text-lg mb-2">{faq.q}</h4>
@@ -411,7 +411,7 @@ export default function NfcMarketingPage() {
           
           <h2 className="text-3xl md:text-5xl font-black mb-8 text-gray-900 dark:text-white">Networking Ağınızı Bugünden Güçlendirin</h2>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Sadece dakikalar içinde dijital profilinizi oluxturun. Klasik kartvizitlerin sınırlamalarından kurtulun ve prestijli dijital kimliğinizle fark yaratmaya hemen baxlayın.
+            Sadece dakikalar içinde dijital profilinizi oluşturun. Klasik kartvizitlerin sınırlamalarından kurtulun ve prestijli dijital kimliğinizle fark yaratmaya hemen başlayın.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -419,7 +419,7 @@ export default function NfcMarketingPage() {
               href="/register?type=nfc" 
               className="px-10 py-4 rounded-full bg-blue-600 text-white font-bold text-lg shadow-lg hover:shadow-xl hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
             >
-              Ücretsiz Hesap Oluxtur <ArrowRight className="w-5 h-5" />
+              Ücretsiz Hesap Oluştur <ArrowRight className="w-5 h-5" />
             </Link>
             
             <a 
@@ -456,7 +456,7 @@ export default function NfcMarketingPage() {
                 <span className="font-bold text-slate-900 dark:text-white text-xl tracking-tight">SentientWire</span>
               </div>
               <p className="text-sm text-slate-900 dark:text-gray-400 dark:text-white/40 max-w-sm leading-relaxed mb-6">
-                Türkiye'nin en gelixmix bulut tabanlı, API öncelikli B2B/B2C Kurumsal Yönetim ve ERP Altyapısı. İxinizi global vizyonla ölçeklendirin.
+                Türkiye'nin en gelişmiş bulut tabanlı, API öncelikli B2B/B2C Kurumsal Yönetim ve ERP Altyapısı. İşinizi global vizyonla ölçeklendirin.
               </p>
               <div className="flex items-center gap-4 text-slate-900 dark:text-gray-400 dark:text-white/30">
                 <Shield className="w-5 h-5 hover:text-slate-900 dark:text-white transition-colors cursor-pointer" />
@@ -471,7 +471,7 @@ export default function NfcMarketingPage() {
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Tüm Özellikler</a></li>
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Entegrasyonlar</a></li>
                 <li><a href="#pricing" className="hover:text-slate-900 dark:text-white transition-colors">Fiyatlandırma</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Gelixtirici API</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Geliştirici API</a></li>
               </ul>
             </div>
             
@@ -488,9 +488,9 @@ export default function NfcMarketingPage() {
               <h4 className="text-slate-900 dark:text-white font-semibold mb-6 text-sm uppercase tracking-wider">Kurumsal</h4>
               <ul className="space-y-4 text-sm text-slate-900 dark:text-gray-500 dark:text-white/50">
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Hakkımızda</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">İletixim</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">İletişim</a></li>
                 <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Gizlilik Politikası</a></li>
-                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Kullanım Koxulları</a></li>
+                <li><a href="#" className="hover:text-slate-900 dark:text-white transition-colors">Kullanım Koşulları</a></li>
               </ul>
             </div>
           </div>
